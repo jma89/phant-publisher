@@ -14,7 +14,7 @@
 #AutoIt3Wrapper_Icon=C:\Program Files (x86)\AutoIt3\Aut2Exe\Icons\AutoIt_Main_v10_48x48_RGB-A.ico
 #AutoIt3Wrapper_UseUpx=y
 #AutoIt3Wrapper_Change2CUI=y
-#AutoIt3Wrapper_Res_Fileversion=0.0.0.22
+#AutoIt3Wrapper_Res_Fileversion=0.0.1.1
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_Language=1033
 #AutoIt3Wrapper_Res_requestedExecutionLevel=asInvoker
@@ -141,7 +141,7 @@ If $cmdLine[0] > 0 Then
 					ConsoleWriteError("Switch '/location' passed but missing parameter. Will use settings from INI." & @CRLF)
 				EndIf
 			Case "/?"
-				ConsoleWrite(@ScriptName & " installs and configures Creo with eDrawings integration." & @CRLF _
+				ConsoleWrite(@ScriptName & " publishes encrypted binary files to a Phant server for distribution." & @CRLF _
 						 & @CRLF _
 						 & "/debug" & @CRLF _
 						 & @TAB & "Enables debug mode" & @CRLF _
@@ -313,7 +313,7 @@ For $i = 0 To UBound($projectsToPublish) - 1
 				ConsoleWrite(" Encoding as Base64... ")
 				Local $opTimer = TimerInit()
 				$fileToEncode = FileOpen($outputFile, $FO_BINARY)
-				$fileString = _Base64Encode(FileRead($fileToEncode), False)
+				$fileString = StringReplace(_Base64Encode(FileRead($fileToEncode), False), @CRLF, "")
 				FileClose($fileToEncode)
 				Local $opCost = TimerDiff($opTimer)
 				ConsoleWrite("Done (" & $opCost & " ms)" & @CRLF)
